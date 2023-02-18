@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping("api/produtos")
 public class ProdutoController {
 
