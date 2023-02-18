@@ -19,17 +19,26 @@ public class SalvarImagemUtils {
     @Value("${imagem.disco.diretorio-fotos}")
     private String diretorioFotos;
 
-    public void salvarFoto(MultipartFile foto) {
-        this.salvar(this.diretorioFotos, foto);
+    public String salvarFoto(MultipartFile imagem) {
+        return this.salvar(this.diretorioFotos, imagem);
     }
 
-    public void salvar(String diretorio, MultipartFile arquivo) {
+    public String salvar(String diretorio, MultipartFile imagem) {
+
+        //var randomName = generateRandomString();
+        //String[] nomeOriginalEExtensao = imagem.getOriginalFilename().split(".");
+        //var extensao = nomeOriginalEExtensao[1];
+        var nomeFinal = imagem.getOriginalFilename();
+
+        var urlImagem = raiz + "/" + diretorioFotos + "/" + nomeFinal;
+
         Path diretorioPath = Paths.get(this.raiz, diretorio);
-        Path arquivoPath = diretorioPath.resolve(Objects.requireNonNull(arquivo.getOriginalFilename()));
+        Path arquivoPath = diretorioPath.resolve(Objects.requireNonNull(nomeFinal));
 
         try {
             Files.createDirectories(diretorioPath);
-            arquivo.transferTo(arquivoPath.toFile());
+            imagem.transferTo(arquivoPath.toFile());
+            return urlImagem;
         } catch (IOException e) {
             throw new RuntimeException("Problemas na tentativa de salvar arquivo.", e);
         }

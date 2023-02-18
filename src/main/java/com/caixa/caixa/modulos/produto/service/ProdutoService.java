@@ -47,20 +47,16 @@ public class ProdutoService {
     @Transactional
     public ProdutoResponse save(ProdutoRequest request, MultipartFile imagem) {
 
+        String caminhoImagem = null;
         if (imagem != null) {
-            String[] urlImagem = (raiz + "/" + diretorioFotos + "/" + imagem.getOriginalFilename()).split(".");
-            String extensao = urlImagem[1];
-
-            log.info("salvando produto");
-            salvarImagemUtils.salvarFoto(imagem);
+           caminhoImagem = salvarImagemUtils.salvarFoto(imagem);
         }
-
-        System.out.println(generateRandomString());
 
         var produto = repository.save(Produto.builder()
                 .nome(request.getNome())
                 .descricao(request.getDescricao())
                 .preco(request.getPreco())
+                .imagem(caminhoImagem)
                 .estoque(request.getEstoque())
                 .build());
 
