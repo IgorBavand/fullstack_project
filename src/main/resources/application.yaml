@@ -3,13 +3,17 @@ spring:
     hibernate:
       ddl-auto: update
     properties:
-      hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+      # hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
 
   datasource:
-    url: jdbc:mysql://localhost:3306/vendas_test?createDatabaseIfNotExist=true
-    username: igor
-    password: 12345678
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    # url: jdbc:mysql://localhost:3306/vendas_test?createDatabaseIfNotExist=true
+    # username: igor
+    # password: 12345678
+    url: jdbc:postgresql://babar.db.elephantsql.com:5432/wewiwquq
+    username: wewiwquq
+    password: J4IQzK1nu37fyYt_xahitCM9Zh4NlzuC
+    driver-class-name: org.postgresql.Driver
 
 server:
   port: 8080

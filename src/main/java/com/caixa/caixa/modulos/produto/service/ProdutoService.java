@@ -39,7 +39,6 @@ public class ProdutoService {
     @Autowired
     private SalvarImagemUtils salvarImagemUtils;
 
-
     public Page<ProdutoResponse> findAll(PageRequest pageRequest) {
         return repository.findAll(pageRequest)
                 .map(ProdutoResponse::of);
@@ -48,11 +47,13 @@ public class ProdutoService {
     @Transactional
     public ProdutoResponse save(ProdutoRequest request, MultipartFile imagem) {
 
-        String[] urlImagem = (raiz + "/" + diretorioFotos + "/" + imagem.getOriginalFilename()).split(".");
-        String extensao = urlImagem[1];
+        if (imagem != null) {
+            String[] urlImagem = (raiz + "/" + diretorioFotos + "/" + imagem.getOriginalFilename()).split(".");
+            String extensao = urlImagem[1];
 
-        log.info("salvando produto");
-        salvarImagemUtils.salvarFoto(imagem);
+            log.info("salvando produto");
+            salvarImagemUtils.salvarFoto(imagem);
+        }
 
         System.out.println(generateRandomString());
 

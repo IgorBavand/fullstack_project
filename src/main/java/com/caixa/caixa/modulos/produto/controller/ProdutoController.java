@@ -26,8 +26,8 @@ public class ProdutoController {
     }
 
     @PostMapping(consumes = {"multipart/form-data"})
-    public ResponseEntity<ProdutoResponse> save(@ModelAttribute ProdutoRequest request, @RequestPart MultipartFile imageTeste) {
-        return ResponseEntity.ok().body(service.save(request, imageTeste));
+    public ResponseEntity<ProdutoResponse> save(@RequestPart ProdutoRequest request, MultipartFile imagem) {
+        return ResponseEntity.ok().body(service.save(request, imagem));
     }
 
     @DeleteMapping("{id}")
