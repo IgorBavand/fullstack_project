@@ -17,7 +17,6 @@ public class ProdutoResponse {
     private Integer estoque;
     private String imagem;
 
-
     public static ProdutoResponse of(Produto produto) {
         return ProdutoResponse.builder()
                 .id(produto.getId())

@@ -25,12 +25,11 @@ public class SalvarImagemUtils {
 
     public String salvar(String diretorio, MultipartFile imagem) {
 
-        //var randomName = generateRandomString();
-        //String[] nomeOriginalEExtensao = imagem.getOriginalFilename().split(".");
-        //var extensao = nomeOriginalEExtensao[1];
-        var nomeFinal = imagem.getOriginalFilename();
-
-        var urlImagem = raiz + "/" + diretorioFotos + "/" + nomeFinal;
+        String randomName = RadomStingUtils.generateRandomString();
+        String[] nomeDaImagem = imagem.getOriginalFilename().split("\\.");
+        String extensao = nomeDaImagem[1];
+        String nomeFinal = randomName + "." + extensao;
+        String urlImagem = raiz + "/" + diretorioFotos + "/" + nomeFinal;
 
         Path diretorioPath = Paths.get(this.raiz, diretorio);
         Path arquivoPath = diretorioPath.resolve(Objects.requireNonNull(nomeFinal));

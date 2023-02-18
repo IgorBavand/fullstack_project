@@ -2,7 +2,6 @@ package com.caixa.caixa.modulos.produto.dto;
 
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @Builder
