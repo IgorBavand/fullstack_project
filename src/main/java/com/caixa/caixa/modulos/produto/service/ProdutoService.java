@@ -8,7 +8,7 @@ import com.caixa.caixa.modulos.produto.dto.ProdutoResponse;
 import com.caixa.caixa.modulos.produto.model.Produto;
 import com.caixa.caixa.modulos.produto.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
-import lombok.extern.slf4j.Slf4j;
+// import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,10 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
 
-import static com.caixa.caixa.modulos.comum.utils.RadomStingUtils.generateRandomString;
 
 @Service
-@Slf4j
+// @Slf4j
 public class ProdutoService {
 
     private static final NotFoundException ERR_PRODUTO_NOT_FOUND = new NotFoundException("Produto não encontrado.");
@@ -63,13 +62,17 @@ public class ProdutoService {
         return ProdutoResponse.of(produto);
     }
 
-    public ProdutoResponse delete(UUID id) throws ChangeSetPersister.NotFoundException {
+    public ProdutoResponse findById(UUID id) throws NotFoundException {
+        return ProdutoResponse.of(repository.findById(id).orElseThrow(() -> ERR_PRODUTO_NOT_FOUND));
+    }
+
+    public ProdutoResponse delete(UUID id) throws NotFoundException {
         var produto = validarProdutoExistente(id);
         repository.delete(produto);
         return ProdutoResponse.of(produto);
     }
 
-    public ProdutoResponse update(ProdutoRequest request, UUID id) throws ChangeSetPersister.NotFoundException {
+    public ProdutoResponse update(ProdutoRequest request, UUID id) throws NotFoundException {
         var produto = validarProdutoExistente(id);
 
         BeanUtils.copyProperties(request, produto, "id");
@@ -78,7 +81,7 @@ public class ProdutoService {
         return ProdutoResponse.of(produto);
     }
 
-    private Produto validarProdutoExistente(UUID id) throws ChangeSetPersister.NotFoundException {
+    private Produto validarProdutoExistente(UUID id) throws NotFoundException {
         return repository.findById(id)
                 .orElseThrow(() -> ERR_PRODUTO_NOT_FOUND);
     }

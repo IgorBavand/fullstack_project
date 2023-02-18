@@ -1,11 +1,11 @@
 package com.caixa.caixa.modulos.produto.controller;
 
 import com.caixa.caixa.config.requisicoes.PageRequest;
+import com.caixa.caixa.modulos.comum.exception.NotFoundException;
 import com.caixa.caixa.modulos.produto.dto.ProdutoRequest;
 import com.caixa.caixa.modulos.produto.dto.ProdutoResponse;
 import com.caixa.caixa.modulos.produto.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +25,11 @@ public class ProdutoController {
     public ResponseEntity<Page<ProdutoResponse>> getAllProdutos(PageRequest pageRequest) {
         return ResponseEntity.ok().body(service.findAll(pageRequest));
     }
+    
+    @GetMapping("{id}")
+    public ResponseEntity<ProdutoResponse> getProduto(@PathVariable UUID id) throws NotFoundException {
+        return ResponseEntity.ok().body(service.findById(id));
+    }
 
     @PostMapping(consumes = {"multipart/form-data"})
     public ResponseEntity<ProdutoResponse> save(@RequestPart ProdutoRequest request, MultipartFile imagem) {
@@ -32,12 +37,12 @@ public class ProdutoController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<ProdutoResponse> delete(@PathVariable UUID id) throws ChangeSetPersister.NotFoundException {
+    public ResponseEntity<ProdutoResponse> delete(@PathVariable UUID id) throws NotFoundException {
         return ResponseEntity.ok().body(service.delete(id));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ProdutoResponse> update(@RequestBody ProdutoRequest request, @PathVariable UUID id) throws ChangeSetPersister.NotFoundException {
+    public ResponseEntity<ProdutoResponse> update(@RequestBody ProdutoRequest request, @PathVariable UUID id) throws NotFoundException {
         return ResponseEntity.ok().body(service.update(request, id));
     }
 }
