@@ -20,13 +20,13 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(name="usuario", nullable=false, length=50)
+    @Column(name = "usuario", unique = true, nullable = false, length = 20)
     private String usuario;
 
-    @Column(name = "nome", nullable=false, length=50)
+    @Column(name = "nome", nullable = false, length = 50)
     private String nome;
 
-    @Column(name = "senha", nullable=false, length=50)
+    @Column(name = "senha", nullable = false, length = 50)
     private String senha;
 
     public static Usuario of(UsuarioRequest request) {
