@@ -35,7 +35,7 @@ public class ProdutoController {
         return ResponseEntity.ok().body(service.save(request, imagem));
     }
 
-    @PutMapping("{id}")
+    @PutMapping
     public ResponseEntity<ProdutoResponse> update(@RequestBody ProdutoRequest request) throws NotFoundException {
         return ResponseEntity.ok().body(service.update(request));
     }
