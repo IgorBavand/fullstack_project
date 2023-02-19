@@ -12,13 +12,11 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
-
 
 @Service
 // @Slf4j
@@ -48,7 +46,7 @@ public class ProdutoService {
 
         String caminhoImagem = null;
         if (imagem != null) {
-           caminhoImagem = salvarImagemUtils.salvarFoto(imagem);
+            caminhoImagem = salvarImagemUtils.salvarFoto(imagem);
         }
 
         var produto = repository.save(Produto.builder()
@@ -72,18 +70,15 @@ public class ProdutoService {
         return ProdutoResponse.of(produto);
     }
 
-    public ProdutoResponse update(ProdutoRequest request, UUID id) throws NotFoundException {
-        var produto = validarProdutoExistente(id);
-
+    public ProdutoResponse update(ProdutoRequest request) throws NotFoundException {
+        var produto = validarProdutoExistente(request.getId());
         BeanUtils.copyProperties(request, produto, "id");
-
         repository.save(produto);
         return ProdutoResponse.of(produto);
     }
 
     private Produto validarProdutoExistente(UUID id) throws NotFoundException {
-        return repository.findById(id)
-                .orElseThrow(() -> ERR_PRODUTO_NOT_FOUND);
+        return repository.findById(id).orElseThrow(() -> ERR_PRODUTO_NOT_FOUND);
     }
 
 }
