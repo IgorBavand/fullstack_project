@@ -35,13 +35,14 @@ public class ProdutoController {
         return ResponseEntity.ok().body(service.save(request, imagem));
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity<ProdutoResponse> update(@RequestBody ProdutoRequest request) throws NotFoundException {
+        return ResponseEntity.ok().body(service.update(request));
+    }
+    
     @DeleteMapping("{id}")
     public ResponseEntity<ProdutoResponse> delete(@PathVariable UUID id) throws NotFoundException {
         return ResponseEntity.ok().body(service.delete(id));
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<ProdutoResponse> update(@RequestBody ProdutoRequest request, @PathVariable UUID id) throws NotFoundException {
-        return ResponseEntity.ok().body(service.update(request, id));
-    }
 }
