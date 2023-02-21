@@ -11,9 +11,7 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title> Quasar App </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
+        <q-toolbar-title> Caixa App </q-toolbar-title>
       </q-toolbar>
     </q-header>
 
@@ -45,6 +43,18 @@ const linksList = [
     caption: "",
     icon: "home",
     route: { name: "home" },
+  },
+  {
+    title: "Escolher produtos",
+    caption: "",
+    icon: "dehaze",
+    route: { name: "escolher-produtos" },
+  },
+  {
+    title: "Carrinho",
+    caption: "",
+    icon: "shopping_cart",
+    route: { name: "carrinho" },
   },
 ];
 
