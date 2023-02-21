@@ -1,5 +1,7 @@
 package com.caixa.caixa.modulos.usuario.dto;
 
+import com.caixa.caixa.modulos.pedido.model.Pedido;
+import com.caixa.caixa.modulos.usuario.model.Endereco;
 import com.caixa.caixa.modulos.usuario.model.Usuario;
 
 import lombok.Builder;
@@ -15,6 +17,10 @@ public class UsuarioResponse {
     private String usuario;
     private String senha;
     private String nome;
+    private String email;
+    private String telefone;
+    private Endereco endereco;
+    private Pedido pedido;
 
     public static UsuarioResponse of(Usuario usuario) {
         return UsuarioResponse.builder()
@@ -22,6 +28,10 @@ public class UsuarioResponse {
                 .usuario(usuario.getUsuario())
                 .senha(usuario.getSenha())
                 .nome(usuario.getNome())
+                .email(usuario.getEmail())
+                .telefone(usuario.getTelefone())
+                .endereco(usuario.getEndereco())
+                .pedido(usuario.getPedido())
                 .build();
     }
 
