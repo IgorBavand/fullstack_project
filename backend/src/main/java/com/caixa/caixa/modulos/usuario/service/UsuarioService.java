@@ -21,10 +21,9 @@ import java.util.UUID;
 public class UsuarioService {
 
     private static final NotFoundException ERR_USUARIO_NOT_FOUND = new NotFoundException("Usuário não encontrado.");
-    private static final NotFoundException ERR_USUARIO_EM_USO = new NotFoundException(
-            "Usuário já está sendo utilizado.");
-    private static final NotFoundException ERR_USUARIO_OU_SENHA_INCORRETO = new NotFoundException(
-            "Usuário ou senha incorreto.");
+    private static final NotFoundException ERR_USUARIO_EM_USO = new NotFoundException("Usuário já está sendo utilizado.");
+    private static final NotFoundException ERR_EMAIL_EM_USO = new NotFoundException("Email já está sendo utilizado.");
+    private static final NotFoundException ERR_USUARIO_OU_SENHA_INCORRETO = new NotFoundException("Usuário ou senha incorreto.");
 
     @Autowired
     private UsuarioRepository repository;
@@ -47,15 +46,24 @@ public class UsuarioService {
     @Transactional
     public UsuarioResponse save(UsuarioRequest request) throws NotFoundException {
         var usuarioExistente = repository.findByUsuario(request.getUsuario());
-        
+        var emailExistente = repository.findByEmail(request.getEmail());
+
         if (usuarioExistente.isPresent()) {
             throw ERR_USUARIO_EM_USO;
+        }
+
+        if(emailExistente.isPresent()) {
+            throw ERR_EMAIL_EM_USO;
         }
 
         var usuario = repository.save(Usuario.builder()
                 .usuario(request.getUsuario())
                 .senha(request.getSenha())
                 .nome(request.getNome())
+                .email(request.getEmail())
+                .telefone(request.getTelefone())
+                .endereco(request.getEndereco())
+                .pedido(request.getPedido())
                 .build());
 
         return UsuarioResponse.of(usuario);

@@ -1,5 +1,6 @@
 package com.caixa.caixa.modulos.produto.model;
 
+import com.caixa.caixa.modulos.pedido.model.Pedido;
 import com.caixa.caixa.modulos.produto.dto.ProdutoRequest;
 import jakarta.persistence.*;
 import lombok.*;
@@ -34,6 +35,9 @@ public class Produto {
     @Column(name = "imagem")
     private String imagem;
 
+    // @ManyToOne
+    // private Pedido pedido;
+
     public static Produto of(ProdutoRequest request, String imagem) {
         return Produto.builder()
                 .nome(request.getNome())
@@ -41,6 +45,7 @@ public class Produto {
                 .preco(request.getPreco())
                 .imagem(imagem)
                 .estoque(request.getEstoque())
+                // .pedido(request.getPedido())
                 .build();
     }
 
