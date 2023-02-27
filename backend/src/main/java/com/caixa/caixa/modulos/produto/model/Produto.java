@@ -35,8 +35,8 @@ public class Produto {
     @Column(name = "imagem")
     private String imagem;
 
-    // @ManyToOne
-    // private Pedido pedido;
+    @ManyToOne
+    private Pedido pedido;
 
     public static Produto of(ProdutoRequest request, String imagem) {
         return Produto.builder()
@@ -45,7 +45,7 @@ public class Produto {
                 .preco(request.getPreco())
                 .imagem(imagem)
                 .estoque(request.getEstoque())
-                // .pedido(request.getPedido())
+                .pedido(request.getPedido())
                 .build();
     }
 

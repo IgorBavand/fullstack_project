@@ -34,8 +34,8 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    // @OneToMany
-    // private List<Produto> produtos;
+    @OneToMany
+    private List<Produto> produtos;
 
     @OneToOne
     private Usuario usuario;
@@ -48,7 +48,7 @@ public class Pedido {
 
     public static Pedido of(PedidoRequest request) {
         return Pedido.builder()
-                // .produtos(request.getProdutos())
+                .produtos(request.getProdutos())
                 .usuario(request.getUsuario())
                 .valorTotal(request.getValorTotal())
                 .preco(request.getPreco())

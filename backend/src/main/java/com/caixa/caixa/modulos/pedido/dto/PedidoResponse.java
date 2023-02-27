@@ -15,14 +15,14 @@ import lombok.Data;
 public class PedidoResponse {
 
     private UUID id;
-    // private List<Produto> produtos;
+    private List<Produto> produtos;
     private Usuario usuario;
     private Double valorTotal;
     private Double preco;
 
     public static PedidoResponse of(Pedido pedido) {
         return PedidoResponse.builder()
-                // .produtos(pedido.getProdutos())
+                .produtos(pedido.getProdutos())
                 .usuario(pedido.getUsuario())
                 .valorTotal(pedido.getValorTotal())
                 .preco(pedido.getPreco())

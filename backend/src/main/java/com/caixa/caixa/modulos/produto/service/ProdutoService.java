@@ -55,6 +55,7 @@ public class ProdutoService {
                 .preco(request.getPreco())
                 .imagem(caminhoImagem)
                 .estoque(request.getEstoque())
+                .pedido(request.getPedido())
                 .build());
 
         return ProdutoResponse.of(produto);

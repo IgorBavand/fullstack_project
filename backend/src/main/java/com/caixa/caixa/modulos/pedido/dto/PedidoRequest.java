@@ -14,7 +14,7 @@ import lombok.Data;
 public class PedidoRequest {
 
     private UUID id;
-    // private List<Produto> produtos;
+    private List<Produto> produtos;
     private Usuario usuario;
     private Double valorTotal;
     private Double preco;
