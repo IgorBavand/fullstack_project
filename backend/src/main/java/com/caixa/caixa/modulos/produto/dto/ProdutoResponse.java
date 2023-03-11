@@ -1,5 +1,6 @@
 package com.caixa.caixa.modulos.produto.dto;
 
+import com.caixa.caixa.modulos.pedido.model.Pedido;
 import com.caixa.caixa.modulos.produto.model.Produto;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +17,7 @@ public class ProdutoResponse {
     private Double preco;
     private Integer estoque;
     private String imagem;
+    private Pedido pedido;
 
     public static ProdutoResponse of(Produto produto) {
         return ProdutoResponse.builder()
@@ -25,6 +27,7 @@ public class ProdutoResponse {
                 .descricao(produto.getDescricao())
                 .estoque(produto.getEstoque())
                 .imagem(produto.getImagem())
+                .pedido(produto.getPedido())
                 .build();
     }
 
